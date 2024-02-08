@@ -23,21 +23,21 @@ const SinglePostPage = () => {
             width={50}
             height={50}
           />
+          <div className={styles.detailText}>
+            <span className={styles.detailTitle}>Author</span>
+            <span className={styles.detailValue}>Terry Jefferson</span>
+          </div>
+          <div className={styles.detailText}>
+            <span className={styles.detailTitle}>Published</span>
+            <span className={styles.detailValue}>01.01.2024</span>
+          </div>
         </div>
-        <div className={styles.detailText}>
-          <span className={styles.detailTitle}>Author</span>
-          <span className={styles.detailValue}>Terry Jefferson</span>
+        <div className={styles.content}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat odio
+          voluptatem quod perferendis officiis omnis a corrupti doloremque
+          magnam eos, voluptatum veniam id ad officia incidunt obcaecati
+          impedit, sint voluptatibus.
         </div>
-        <div className={styles.detailText}>
-          <span className={styles.detailTitle}>Published</span>
-          <span className={styles.detailValue}>01.01.2024</span>
-        </div>
-      </div>
-      <div className={styles.content}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat odio
-        voluptatem quod perferendis officiis omnis a corrupti doloremque magnam
-        eos, voluptatum veniam id ad officia incidunt obcaecati impedit, sint
-        voluptatibus.
       </div>
     </div>
   );
