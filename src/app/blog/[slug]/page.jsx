@@ -13,6 +13,15 @@ import PostUser from "@/components/postuser/postUser";
 //   return res.json();
 // };
 
+export const generateMetadata = async ({ params }) => {
+  const { slug } = params;
+  const post = await getPost(slug);
+  return {
+    title: post.title,
+    description: post.desc,
+  };
+};
+
 const SinglePostPage = async ({ params }) => {
   const { slug } = params;
   const post = await getPost(slug);
@@ -20,24 +29,20 @@ const SinglePostPage = async ({ params }) => {
     <div className={styles.container}>
       {post?.img && (
         <div className={styles.imgContainer}>
-          <Image
-            className={styles.img}
-            src={post?.img}
-            alt=""
-            fill
-          />
+          <Image className={styles.img} src={post?.img} alt="" fill />
         </div>
       )}
       <div className={styles.textContainer}>
         <h1 className={styles.title}>{post.title}</h1>
         <div className={styles.detail}>
-         
           <Suspense fallback={<div>Lodding...</div>}>
             <PostUser userId={post.userId}></PostUser>
           </Suspense>
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>Published</span>
-            <span className={styles.detailValue}>{post.createdAt.toString().slice(4,16)}</span>
+            <span className={styles.detailValue}>
+              {post.createdAt.toString().slice(4, 16)}
+            </span>
           </div>
         </div>
         <div className={styles.content}>{post?.desc}</div>

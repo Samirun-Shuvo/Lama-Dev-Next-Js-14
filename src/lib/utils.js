@@ -1,5 +1,12 @@
 const { default: mongoose } = require("mongoose");
 
+//db connection password
+//shuvo-dev
+//RKDGFCtDEyy4Vcsa
+//ZuYccZAly73NB8bI
+//mbffMCMiKwjnBi3
+//MONGO = mongodb+srv://shuvo-dev:RKDGFCtDEyy4Vcsa@cluster1.dzewntq.mongodb.net/NEXTJS-FULLSTACK-CRASH-COURSE-LAMA-DEV?retryWrites=true&w=majority
+
 const connection = {};
 export const connectToDb = async () => {
   try {
