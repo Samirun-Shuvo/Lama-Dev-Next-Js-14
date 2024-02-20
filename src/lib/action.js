@@ -1,6 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { Post } from "./models";
+import { Post, User } from "./models";
 import { connectToDb } from "./utils";
 import { signIn, signOut } from "./auth";
 
@@ -38,4 +38,17 @@ export const handleGithubLogin = async () => {
 export const handleLogout = async () => {
   "use server";
   await signOut();
+};
+export const register = async (formData) => {
+  const { username, email, password, passwordRepet } =
+    Object.fromEntries(formData);
+  try {
+    connectToDb();
+    const newUser = new User({ username, email, password });
+    await newUser.save();
+    console.log("save to db");
+  } catch (err) {
+    console.log(err);
+    return { error: "Something went wrong!" };
+  }
 };
