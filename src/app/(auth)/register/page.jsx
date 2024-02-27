@@ -8,10 +8,10 @@ const RegisterPage = () => {
       <div className={styles.wrapper}>
         <form className={styles.form} action={register}>
           <input type="text" name="username" id="" placeholder="username" />
-          <input type="text" name="email" id="" placeholder="email" />
-          <input type="text" name="password" id="" placeholder="password" />
+          <input type="email" name="email" id="" placeholder="email" />
+          <input type="password" name="password" id="" placeholder="password" />
           <input
-            type="text"
+            type="password"
             name="passwordRepeat"
             id=""
             placeholder="password again"
