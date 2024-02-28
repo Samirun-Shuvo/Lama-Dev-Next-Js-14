@@ -5,17 +5,19 @@ import { connectToDb } from "./utils";
 import { signIn, signOut } from "./auth";
 import bcrypt from "bcrypt";
 
-export const addPost = async (formData) => {
+export const addPost = async (prevState,formData) => {
   const { title, desc, slug, userId } = Object.fromEntries(formData);
   try {
     connectToDb();
     const newPost = new Post({ title, desc, slug, userId });
     await newPost.save();
     revalidatePath("/blog");
+    revalidatePath("/admin");
   } catch (err) {
     return { error: "Something went wrong" };
   }
 };
+
 
 export const deletePost = async (formData) => {
   const { id } = Object.fromEntries(formData);
@@ -23,6 +25,31 @@ export const deletePost = async (formData) => {
     connectToDb();
     await Post.findByIdAndDelete(id);
     revalidatePath("/blog");
+    revalidatePath("/admin");
+  } catch (err) {
+    return { error: "Something went wrong" };
+  }
+};
+
+export const addUser = async (prevState,formData) => {
+  const { username,email,password,img } = Object.fromEntries(formData);
+  try {
+    connectToDb();
+    const newUser = new User({ username,email,password,img });
+    await newUser.save();
+    revalidatePath("/admin");
+  } catch (err) {
+    return { error: "Something went wrong" };
+  }
+};
+
+export const deleteUser = async (formData) => {
+  const { id } = Object.fromEntries(formData);
+  try {
+    connectToDb();
+    await Post.deleteUser({userId: id});
+    await User.findByIdAndDelete(id);
+    revalidatePath("/admin");
   } catch (err) {
     return { error: "Something went wrong" };
   }
