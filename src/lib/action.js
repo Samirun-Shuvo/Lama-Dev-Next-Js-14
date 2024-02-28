@@ -7,27 +7,23 @@ import bcrypt from "bcrypt";
 
 export const addPost = async (formData) => {
   const { title, desc, slug, userId } = Object.fromEntries(formData);
-
   try {
     connectToDb();
     const newPost = new Post({ title, desc, slug, userId });
     await newPost.save();
-    console.log("Saved to db");
     revalidatePath("/blog");
   } catch (err) {
-    console.log(err);
     return { error: "Something went wrong" };
   }
 };
+
 export const deletePost = async (formData) => {
   const { id } = Object.fromEntries(formData);
   try {
     connectToDb();
     await Post.findByIdAndDelete(id);
-    console.log("Deleted from db");
     revalidatePath("/blog");
   } catch (err) {
-    console.log(err);
     return { error: "Something went wrong" };
   }
 };
@@ -36,10 +32,12 @@ export const handleGithubLogin = async () => {
   "use server";
   await signIn("github");
 };
+
 export const handleLogout = async () => {
   "use server";
   await signOut();
 };
+
 export const register = async (formData) => {
   const { username, email, img, password, passwordRepeat } =
     Object.fromEntries(formData);
@@ -52,25 +50,27 @@ export const register = async (formData) => {
     if (user) {
       return "Username already exists";
     }
-    
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt)
 
-    const newUser =await new User({ username, email, password:hashedPassword, img });
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = await new User({
+      username,
+      email,
+      password: hashedPassword,
+      img,
+    });
     await newUser.save();
-    console.log("save to db");
   } catch (err) {
-    console.log(err);
     return { error: "Something went wrong!" };
   }
 };
+
 export const login = async (formData) => {
-  const { username, password } =
-    Object.fromEntries(formData);
+  const { username, password } = Object.fromEntries(formData);
   try {
-  await signIn("credentials", {username, password});
+    await signIn("credentials", { username, password });
   } catch (err) {
-    console.log(err);
     return { error: "Something went wrong!" };
   }
 };
