@@ -3,12 +3,11 @@ import React from "react";
 import styles from "./loginForm.module.css";
 import { useFormState } from "react-dom";
 import { login } from "@/lib/action";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const LoginForm = () => {
   const [state, formAction] = useFormState(login, undefined);
-  const router = useRouter();
+
   return (
     <form className={styles.form} action={formAction}>
       <input type="text" name="username" id="" placeholder="username" />
