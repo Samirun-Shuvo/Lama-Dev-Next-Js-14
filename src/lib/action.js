@@ -5,7 +5,7 @@ import { connectToDb } from "./utils";
 import { signIn, signOut } from "./auth";
 import bcrypt from "bcrypt";
 
-export const addPost = async (prevState,formData) => {
+export const addPost = async (prevState, formData) => {
   const { title, desc, slug, userId } = Object.fromEntries(formData);
   try {
     connectToDb();
@@ -17,7 +17,6 @@ export const addPost = async (prevState,formData) => {
     return { error: "Something went wrong" };
   }
 };
-
 
 export const deletePost = async (formData) => {
   const { id } = Object.fromEntries(formData);
@@ -31,11 +30,11 @@ export const deletePost = async (formData) => {
   }
 };
 
-export const addUser = async (prevState,formData) => {
-  const { username,email,password,img } = Object.fromEntries(formData);
+export const addUser = async (prevState, formData) => {
+  const { username, email, password, img } = Object.fromEntries(formData);
   try {
     connectToDb();
-    const newUser = new User({ username,email,password,img });
+    const newUser = new User({ username, email, password, img });
     await newUser.save();
     revalidatePath("/admin");
   } catch (err) {
@@ -47,7 +46,7 @@ export const deleteUser = async (formData) => {
   const { id } = Object.fromEntries(formData);
   try {
     connectToDb();
-    await Post.deleteUser({userId: id});
+    await Post.deleteMany({ userId: id });
     await User.findByIdAndDelete(id);
     revalidatePath("/admin");
   } catch (err) {
